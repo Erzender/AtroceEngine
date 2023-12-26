@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AtroceEngine</title>
+    <script src="src/pixel.js"></script>
+    <script src="src/raycast.js"></script>
+  </head>
+  <body style="overflow: hidden; margin: 0; background-color: black">
+    <div id="container" style="overflow: hidden">
+      <div id="screen" style="display: flex; flex-direction: row;">
+        <img class="image-screen" src="screen" />
+        <img class="image-screen" src="screen" />
+        <img class="image-screen" src="screen" />
+      </div>
+      <button
+        style="position: absolute; top: 0; right: 0"
+        onclick="onfullscreen()"
+      >
+        full
+      </button>
+    </div>
+    <script src="src/main.js"></script>
+  </body>
+</html>

@@ -27,36 +27,57 @@ const width = window.innerWidth;
 let physics = {
   position: {
     direction: { x: 0, y: 0 } // -180/+180 ; -90/+90
-  }
+  },
+  terrain: [[0, 0, 0, 0], [0, 0.2, 3, 0], [-40, 8, -40, 0]] // x, y, z, type
 };
 
 let world = {
-  player: { x: 0, y: 0, z: 0 }
+  meshes: []
 };
+
+for (let ter = 0; ter < physics.terrain.length; ter++) {
+  world.meshes.push({
+    type: 1,
+    A: [ter[0], ter[1], ter[2]],
+    d: -ter[1],
+    dim: [100, 100]
+  });
+  world.meshes.push({
+    type: 2,
+    A: [ter[0], ter[1], ter[2] - 1],
+    d: 1 - ter[2],
+    dim: [100, 100]
+  });
+  world.meshes.push({
+    type: 0,
+    A: [ter[0] + 1, ter[1], ter[2] - 1],
+    d: 1 - ter[0],
+    dim: [100, 100]
+  });
+  world.meshes.push({
+    type: 2,
+    A: [ter[0], ter[1], ter[2]],
+    d: -ter[2],
+    dim: [100, 100]
+  });
+  world.meshes.push({
+    type: 0,
+    A: [ter[0], ter[1], ter[2] - 1],
+    d: -ter[0],
+    dim: [100, 100]
+  });
+}
 let color;
 
-for (let y = 0; y < window.settings.height / 2; y++) {
-  for (let x = 0; x < window.settings.width; x++) {
-    setPixel(pix, x, y, [50, 150, 230]);
-  }
-}
+color = raycast(800, 1000, world);
+setPixel(pix, 800, 1000, color);
 
-// for (let y = window.settings.height / 2; y < window.settings.height; y++) {
-for (
-  let y = window.settings.height / 2;
-  y < window.settings.height / 2 + 10;
-  y++
-) {
-  // for (let x = 0; x < window.settings.width; x++) {
-  for (
-    let x = window.settings.width / 2;
-    x < window.settings.width / 2 + 3;
-    x++
-  ) {
-    color = raycast(x, y, world);
-    setPixel(pix, x, y, color);
-  }
-}
+// for (let y = 0; y < window.settings.height; y++) {
+//   for (let x = 0; x < window.settings.width; x++) {
+//     color = raycast(x, y, world);
+//     setPixel(pix, x, y, color);
+//   }
+// }
 
 ctx.putImageData(imgData, 0, 0);
 
